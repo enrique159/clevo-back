@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { logger } from "../../../shared/log/logger.js";
 import { User } from "../domain/interfaces/Users.js";
 import CreateUserUseCase from "../useCases/CreateUser.useCase.js";
 
@@ -16,6 +17,8 @@ export default class CreateUserController {
     const createUserUseCase = new CreateUserUseCase();
     await createUserUseCase.execute(user)
       .then((user) => {
+        // TODO: Agregar email de usuario a la info del log
+        logger({ HttpType: "POST", route: "/users/create", useremail: "NA", success: true })
         res.status(201).json(user);
       })
       .catch((err) => {

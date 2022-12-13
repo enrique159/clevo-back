@@ -104,6 +104,12 @@ const ErrorCode: { [key: string]: ErrorType } = {
     msg: 'UNIQUE_VIOLATION',
     description: '',
   },
+  ERR0017: {
+    code: 'ERR0017',
+    category: ErrorCategory.USER,
+    msg: 'INVALID_PASSWORD',
+    description: 'Password provided is not valid',
+  },
   ERR0100: {
     code: 'ERR0100',
     category: ErrorCategory.BUSINESS,

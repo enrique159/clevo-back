@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 // DEPENDENCIES
 import DBConnectionManager from './app/shared/database/services/DBConnectionManager.js';
 // ROUTES IMPORT 
@@ -17,6 +18,7 @@ const port = process.env.PORT || 3333;
 // MIDDLEWARE
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 // ROUTES
 app.use('/', Routes());

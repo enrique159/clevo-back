@@ -1,10 +1,9 @@
-import { IPayload } from "../../../network/domain/interfaces/IPayload.js";
 import DBConnectionManager from "../../../shared/database/services/DBConnectionManager.js";
 import { User } from "../domain/interfaces/Users.js";
-import { CreateUserRepositoryModel } from "../domain/services/CreateUserRepositoryModel.js";
 import { CreateUserRepository } from "../repository/CreateUserRepository.js";
+import { BaseUseCase } from "../../../shared/common/BaseUseCase.js";
 
-export default class CreateUserUseCase {
+export default class CreateUserUseCase implements BaseUseCase<User, Promise<User>> {
   constructor() {}
 
   async execute(payload: User): Promise<User> {
