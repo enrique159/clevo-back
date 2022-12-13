@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken'
-import { UserAuth } from '../domain/interfaces/Auth.js'
+import { UserAuth } from '../../app/auth/domain/interfaces/Auth.js'
 
 export const generateToken = (user: UserAuth) => {
   const payload = {

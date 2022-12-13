@@ -5,7 +5,7 @@ import Exception from "../../shared/error/Exception.js";
 import { logger } from "../../shared/log/logger.js";
 import { Auth, AuthResponse, QueryParams, UserAuth } from "../domain/interfaces/Auth.js";
 import { SignInRepository } from "../repository/SignInRepository.js";
-import { generateToken } from "../utils/generateToken.js";
+import { generateToken } from "../../../plugins/jwt/generateToken.js";
 import ErrorCode from "../../shared/error/errorCode.js";
 import HttpStatusCode from "../../shared/enums/httpStatusCode.js";
 
