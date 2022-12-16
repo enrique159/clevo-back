@@ -6,6 +6,8 @@ import { UserModel } from "../data/model.js";
 import { User } from "../domain/interfaces/Users.js";
 import { CreateUserRepositoryModel } from "../domain/services/CreateUserRepositoryModel.js";
 import ErrorCode from "../../../shared/error/errorCode.js";
+import MongoDBErrorCodes from "../../../shared/enums/MongoDBErrorCodes.js";
+import Warning from "../../../shared/error/Warning.js";
 
 export class CreateUserRepository extends CreateOneBaseRepository<User> implements CreateUserRepositoryModel{
   async execute(item: Partial<User>): Promise<User> {
@@ -13,7 +15,11 @@ export class CreateUserRepository extends CreateOneBaseRepository<User> implemen
     try {
       return await super.execute(item, model);
     } catch (error) {
-      throw new Exception(HttpStatusCode.BAD_REQUEST, ErrorCode.ERR0008)
+      // Check MongoDB Error Code
+      if (error.code === MongoDBErrorCodes.DUPLICATE_KEY)
+        throw new Warning(HttpStatusCode.CONFLICT, ErrorCode.ERR0007)
+      else 
+        throw new Exception(HttpStatusCode.INTERNAL_SERVER_ERROR, ErrorCode.ERR0000)
     }
   }
 }

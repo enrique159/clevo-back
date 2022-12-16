@@ -22,7 +22,7 @@ export default class CreateUserController {
         res.status(201).json(user);
       })
       .catch((err) => {
-        logger({ HttpType: "POST", route: "/users/create", useremail: "NA", error: err.message, success: false })
+        logger({ HttpType: "POST", route: "/users/create", useremail: "NA", error: err.errors[0].description, success: false })
         res.status(err.statusCode).json({ error: err.errors })
       })
   }

@@ -24,15 +24,15 @@ export default class SignInUseCase implements BaseUseCase<Auth, Promise<AuthResp
       try {
         const validPassword = comparePassword(payload.password, user.password)
         if (!validPassword) {
-          logger({ HttpType: "POST", route: "/auth/signin", useremail: payload.email, error: "Invalid credentials", success: false })
           throw new Exception(HttpStatusCode.UNAUTHORIZED, ErrorCode.ERR0017)
         }
       } catch (err) {
-        logger({ HttpType: "POST", route: "/auth/signin", useremail: payload.email, error: err.message, success: false })
-        throw new Exception(HttpStatusCode.UNAUTHORIZED, ErrorCode.ERR0017)
+        if (err instanceof Exception && err.errors[0].code === ErrorCode.ERR0017.code) {
+          throw new Exception(HttpStatusCode.UNAUTHORIZED, ErrorCode.ERR0017)
+        } else 
+          throw new Exception(HttpStatusCode.INTERNAL_SERVER_ERROR, ErrorCode.ERR0000)
       }
     } else {
-      logger({ HttpType: "POST", route: "/auth/signin", useremail: payload.email, error: "User not found", success: false })
       throw new Exception(HttpStatusCode.NOT_FOUND, ErrorCode.ERR0001)
     }
 

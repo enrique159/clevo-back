@@ -20,7 +20,7 @@ export default class SignInController {
         res.status(200).json(response.user);
       })
       .catch((err) => {
-        logger({ HttpType: "POST", route: "/auth/signin", useremail: auth.email, error: err.message, success: false })
+        logger({ HttpType: "POST", route: "/auth/signin", useremail: auth.email, error: err.errors[0].description, success: false })
         res.status(err.statusCode).json({ error: err.errors })
       })
   }
