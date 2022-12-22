@@ -16,7 +16,7 @@ const app: Express = express();
 const port = process.env.PORT || 3333;
 
 // MIDDLEWARE
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -36,7 +36,7 @@ setInterval(() => {
       console.log('Database status...' + dbConnectionManager.statusConnection);
     }
   }
-}, 10000); 
+}, 10000);
 
 app.listen(port, () => {
   console.log(`[server⚡️]: Server is running on port: ${port}`);

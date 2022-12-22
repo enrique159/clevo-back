@@ -8,7 +8,8 @@ export default class VerifyAdminMiddleware {
   constructor() { }
 
   async execute(req: Request, res: Response, next: Function) {
-    const token = req.cookies.JSESSIONID;
+    //const token = req.cookies.JSESSIONID;
+    const token = req.headers['authorization'];
     if (!token) {
       logger({ HttpType: req.method, route: 'None', useremail: "NA", error: "Unauthorized", success: false })
       return res.status(HttpStatusCode.UNAUTHORIZED).json({ error: [ErrorCode.ERR0018] })

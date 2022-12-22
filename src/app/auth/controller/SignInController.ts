@@ -16,8 +16,8 @@ export default class SignInController {
     await signInUseCase.execute(auth)
       .then((response) => {
         logger({ HttpType: "POST", route: "/auth/signin", useremail: response.user.email, success: true })
-        res.cookie("JSESSIONID", response.token, { httpOnly: true })
-        res.status(200).json(response.user);
+        //res.cookie("JSESSIONID", response.token, { httpOnly: true })
+        res.status(200).json({ data: response });
       })
       .catch((err) => {
         logger({ HttpType: "POST", route: "/auth/signin", useremail: auth.email, error: err.errors[0].description, success: false })
