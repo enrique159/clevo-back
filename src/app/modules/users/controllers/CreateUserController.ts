@@ -18,11 +18,11 @@ export default class CreateUserController {
     await createUserUseCase.execute(user)
       .then((user) => {
         // TODO: Agregar email de usuario a la info del log
-        logger({ HttpType: "POST", route: "/users/create", useremail: "NA", success: true })
+        logger({ HttpType: "POST", route: "/users/create", useremail: user.email, success: true })
         res.status(201).json(user);
       })
       .catch((err) => {
-        logger({ HttpType: "POST", route: "/users/create", useremail: "NA", error: err.errors[0].description, success: false })
+        logger({ HttpType: "POST", route: "/users/create", useremail: user.email, error: err.errors[0].description, success: false })
         res.status(err.statusCode).json({ error: err.errors })
       })
   }
